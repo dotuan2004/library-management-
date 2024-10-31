@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee Modal</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        /* Modal Background */
+        .modal.fade {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1050;
+            overflow: hidden;
+            outline: 0;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-dialog {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: none;
+        }
+
+        /* Modal Header */
+        .modal-header {
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .modal-header .close {
+            font-size: 1.2rem;
+            color: #aaa;
+            background: none;
+            border: none;
+        }
+
+        .modal-header .close:hover {
+            color: #ff5c5c;
+        }
+
+        /* Modal Body */
+        .modal-body {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Modal Footer */
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .modal-footer .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal-footer .btn-default {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .modal-footer .btn-default:hover {
+            background-color: #ddd;
+        }
+
+        .modal-footer .btn-info {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .modal-footer .btn-info:hover {
+            background-color: #138496;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="editEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:object="${sach}" th:action="@{/manager/suasach(id=${sach.idSach})}" method="POST">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Employee</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" th:field="*{idSach}" />
+                    <div class="form-group">
+                        <label>Tên sách</label>
+                        <input type="text" class="form-control" th:field="*{tenSach}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên Tác Giả</label>
+                        <input type="text" class="form-control" th:name="tacGiaInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Số Lượng</label>
+                        <input type="text" class="form-control" th:field="*{soLuong}" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-info" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Mở modal khi trang tải
+    $(document).ready(function() {
+        $('#editEmployeeModal').modal('show');
+    });
+</script>
+
+</body>
+</html>

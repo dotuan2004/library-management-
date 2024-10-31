@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web bán Sách </title>
+    <link rel="stylesheet" th:href="@{css/style2.css}" >
+
+</head>
+
+<body>
+
+
+<div id="wrapper">
+    <div id="header">
+        <a href="" class="logo">
+            <img th:src="@{images/logo.png}" alt="">
+        </a>
+        <div id="menu">
+            <div class="item">
+                <a th:href="@{/thanhcong}">Trang chủ</a>
+            </div>
+            <div class="item">
+                <a th:href="@{/product}">Sản phẩm</a>
+            </div>
+            <div class="item">
+                <a href="">Blog</a>
+            </div>
+            <div class="item">
+                <a href="">Liên hệ</a>
+            </div>
+        </div>
+        <div id="actions">
+            <p th:if="${session.username != null}" class="welcome-message">
+                Welcome, <span th:text="${session.username}">User</span>!
+            </p>
+            <div class="item">
+                <img th:src="@{images/user.png}" alt="">
+            </div>
+            <div class="item">
+                <a th:href="@{/getallcart}"><img th:src="@{images/cart.png}" alt=""></a>
+            </div>
+        </div>
+    </div>
+    <h2 class="product-title">SẢN PHẨM CỦA CHÚNG TÔI</h2>
+    <p th:if="${oke != null}" class="welcome-message">
+        <span th:text="${oke}"></span>!
+    </p>
+    <div id="wp-products">
+
+            <div th:each="sach : ${sachList}" class="item">
+                <img th:src="@{images/product_1.png}" alt="">
+                <div class="stars">
+                        <span th:each="star : ${#numbers.sequence(0, 4)}">
+                                <img th:src="@{images/star.png}" alt="">
+                        </span>
+                </div>
+
+                <div class="name" th:text="${sach.tenSach}"> </div>
+                <div class="desc" >
+                    <span th:each="tacgia, iterStat : ${sach.tacgias}"> Tên tác giả :
+                    <span th:text="${tacgia.tenTacGia}"></span>
+                    <span th:if="${iterStat.last}"> </span> <!-- Không hiển thị dấu phẩy sau tác giả cuối cùng -->
+                    <span th:if="${!iterStat.last}">, </span> <!-- Hiển thị dấu phẩy giữa các tác giả --></span>
+                </div>
+                <div class="price">
+                    <form th:action="@{/addToCart}" method="post">
+                        <input type="hidden" name="productId" th:value="${sach.idSach}" />
+
+                        <button type="submit" class="color">MUA</button>
+
+                    </form>
+                </div>
+            </div>
+
+
+
+
+    <div id="footer">
+        <div class="box">
+            <div class="logo">
+                <img th:src="@{images/logo.png}" alt="">
+            </div>
+            <p>Cung cấp sản phẩm với chất lượng an toàn cho quý khách</p>
+        </div>
+        <div class="box">
+            <h3>NỘI DUNG</h3>
+            <ul class="quick-menu">
+                <div class="item">
+                    <a href="">Trang chủ</a>
+                </div>
+                <div class="item">
+                    <a href="">Sản phẩm</a>
+                </div>
+                <div class="item">
+                    <a href="">Blog</a>
+                </div>
+                <div class="item">
+                    <a href="">Liên hệ</a>
+                </div>
+            </ul>
+        </div>
+        <div class="box">
+            <h3>LIÊN HỆ</h3>
+            <form action="">
+                <input type="text" placeholder="Địa chỉ email">
+                <button>Nhận tin</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<script th:src="@{js/script.js}"></script>
+</body>
+
+</html>
